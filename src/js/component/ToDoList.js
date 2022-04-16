@@ -12,6 +12,11 @@ const ToDoList = () => {
 
 	const [newTask, setNewTask] = useState("");
 
+	const [isShown, setIsShown] = useState({
+		state: false,
+		index: 0,
+	});
+
 	const add = () => {
 		console.log("clicked");
 		let newArray = [...data];
@@ -34,41 +39,58 @@ const ToDoList = () => {
 		setNewTask(event.target.value);
 	};
 
+	const editTodo = (index) => {
+		console.log(index);
+		let editArray = [...data];
+	};
+
 	return (
 		<div className="d-flex flex-column align-items-center">
 			<h1>To Do List</h1>
-			<div className="list text-center">
-				<div>
+			<div className="list">
+				<div className="input-group">
 					<input
+						className="form-control"
+						type="text"
 						onChange={handleInput}
-						// ref={inputRef}
 						placeholder="Add Task Here"
 					/>
-					<button className="btn btn-success" onClick={add}>
+					<button
+						type="button"
+						className="btn btn-success"
+						onClick={add}>
 						add
 					</button>
 				</div>
 				{data.map((todo, index) => {
 					return (
 						<div
-							className="w-100 border d-flex justify-content-between"
+							className="w-100 border d-flex"
 							key={index}
 							style={{}}>
-							<div className="mx-3">{todo.text}</div>
-							<div className="mx-3">
-								<button
-									className="btn btn-primary mx-2"
-									onClick={""}>
-									edit
-								</button>{" "}
-								<button
-									className="btn btn-danger mx-2"
-									onClick={() => {
-										deleteItem(index);
-									}}>
-									delete
-								</button>
-							</div>
+							{/* <div className="mx-3"></div> */}
+							<li
+								className=" w-100"
+								onMouseEnter={() =>
+									setIsShown({ state: true, index: index })
+								}
+								onMouseLeave={() =>
+									setIsShown({ state: false, index: 0 })
+								}>
+								{todo.text}{" "}
+								{isShown.state === true &&
+								isShown.index === index ? (
+									<button
+										className=" delete button btn btn-danger mx-2"
+										onClick={() => {
+											deleteItem(index);
+										}}>
+										delete
+									</button>
+								) : (
+									""
+								)}
+							</li>
 						</div>
 					);
 				})}

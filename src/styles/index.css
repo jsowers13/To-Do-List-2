@@ -17,3 +17,9 @@
     width:600px;
     text-align: start;
 }
+.delete{
+    float: right;
+}
+li{
+    list-style: none;
+}
