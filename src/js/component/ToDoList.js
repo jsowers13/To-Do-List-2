@@ -36,12 +36,8 @@ const ToDoList = () => {
 
 	const handleInput = (event) => {
 		console.log(event.target.value);
-		setNewTask(event.target.value);
-	};
 
-	const editTodo = (index) => {
-		console.log(index);
-		let editArray = [...data];
+		setNewTask(event.target.value);
 	};
 
 	return (
@@ -56,21 +52,24 @@ const ToDoList = () => {
 						placeholder="Add Task Here"
 					/>
 					<button
-						type="button"
+						id="addbtn"
+						type="submit"
 						className="btn btn-success"
 						onClick={add}>
 						add
 					</button>
 				</div>
-				{data.map((todo, index) => {
-					return (
-						<div
-							className="w-100 border d-flex"
-							key={index}
-							style={{}}>
-							{/* <div className="mx-3"></div> */}
+				<ul className="list-group-flush">
+					{data.map((todo, index) => {
+						return (
+							// <div
+							// 	className="w-100 border d-flex"
+							// 	key={index}
+							// 	>
+
 							<li
-								className=" w-100"
+								className="list-group-item"
+								key={index}
 								onMouseEnter={() =>
 									setIsShown({ state: true, index: index })
 								}
@@ -81,19 +80,20 @@ const ToDoList = () => {
 								{isShown.state === true &&
 								isShown.index === index ? (
 									<button
-										className=" delete button btn btn-danger mx-2"
+										type="button"
+										className=" delete btn-close"
+										aria-label="Close"
 										onClick={() => {
 											deleteItem(index);
-										}}>
-										delete
-									</button>
+										}}></button>
 								) : (
 									""
 								)}
 							</li>
-						</div>
-					);
-				})}
+							// </div>
+						);
+					})}
+				</ul>
 			</div>
 		</div>
 	);
